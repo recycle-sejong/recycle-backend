@@ -35,6 +35,7 @@ public class MapServiceImpl implements MapService {
                 .latitude(map.getLatitude())
                 .longitude(map.getLongitude())
                 .categoryId(map.getCategory().getCategoryId())
+                .categoryName(map.getCategory().getCategoryName())
                 .build();
     }
 
@@ -49,6 +50,7 @@ public class MapServiceImpl implements MapService {
                         .name(map.getName())
                         .latitude(map.getLatitude())
                         .longitude(map.getLongitude())
+                        .categoryId(map.getCategory().getCategoryId())
                         .categoryName(map.getCategory().getCategoryName())
                         .build())
                 .collect(Collectors.toList());
@@ -69,7 +71,8 @@ public class MapServiceImpl implements MapService {
                     .name(map.getName())
                     .latitude(map.getLatitude())
                     .longitude(map.getLongitude())
-                    .categoryId(map.getCategory() != null ? map.getCategory().getCategoryId() : null)
+                    .categoryId(map.getCategory().getCategoryId())
+                    .categoryName(map.getCategory().getCategoryName())
                     .build();
             result.add(dto);
         }
