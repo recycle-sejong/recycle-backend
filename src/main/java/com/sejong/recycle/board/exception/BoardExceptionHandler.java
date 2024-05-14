@@ -14,4 +14,9 @@ public class BoardExceptionHandler {
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()+"을 찾을 수 없습니다.");
     }
+
+    @ExceptionHandler(AccessDenyException.class)
+    public ResponseEntity<String> handleAccessDenyException(AccessDenyException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }

@@ -2,8 +2,8 @@ package com.sejong.recycle.board.controller;
 
 
 import com.sejong.recycle.board.Board;
-import com.sejong.recycle.board.dto.BoardCreateDto;
-import com.sejong.recycle.board.dto.BoardListDto;
+import com.sejong.recycle.board.BoardType;
+import com.sejong.recycle.board.dto.*;
 import com.sejong.recycle.board.service.BoardService;
 import com.sejong.recycle.board.swagger.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,8 +22,9 @@ public class BoardController {
 
     @BoardCreateApi
     @PostMapping("/board")
-    public Board createBoard(@RequestBody BoardCreateDto memberCreateDto) {
-        return boardService.createBoard(memberCreateDto);
+    public Board createBoard(@RequestBody BoardCreateDto memberCreateDto,
+                             @RequestParam("boardType") BoardType boardType) {
+        return boardService.createBoard(memberCreateDto,boardType);
     }
 
 
@@ -33,21 +34,38 @@ public class BoardController {
         return boardService.getBoardList();
     }
 
+    @BoardGetsByTypeApi
+    @GetMapping("/boards/type")
+    public List<BoardListDto> getBoardsCategory(@RequestParam("boardType") BoardType boardType){
+        return boardService.getBoardListByType(boardType);
+    }
+
+    @BoardGetsMapApi
+    @GetMapping("/boards/map")
+    public List<BoardMapListDto> getBoardMap(){
+        return boardService.getBoardMapList();
+    }
+
+
     @BoardGetApi
     @GetMapping("/boards/{boardId}")
-    public Board getBoard(@PathVariable("boardId") Long boardId){
+    public BoardResDto getBoard(@PathVariable("boardId") Long boardId){
         return boardService.getBoard(boardId);
     }
 
     @BoardUpdateApi
     @PatchMapping("/boards/{boardId}")
-    public Board updateBoard(@PathVariable("boardId") Long boardId,@RequestBody BoardCreateDto boardCreateDto){
-        return boardService.updateBoard(boardId, boardCreateDto);
+    public BoardResDto updateBoard(@PathVariable("boardId") Long boardId,
+                                   @RequestBody BoardCreateDto boardCreateDto,
+                                   @RequestParam("boardType") BoardType boardType){
+        return boardService.updateBoard(boardId, boardCreateDto, boardType);
     }
+
 
     @BoardDeleteApi
     @DeleteMapping("/boards/{boardId}")
-    public String deleteBoard(@PathVariable("boardId") Long boardId){
-        return boardService.deleteBoard(boardId);
+    public String deleteBoard(@PathVariable("boardId") Long boardId,
+                              @RequestBody PasswordDto passwordDto){
+        return boardService.deleteBoard(boardId,passwordDto);
     }
 }
