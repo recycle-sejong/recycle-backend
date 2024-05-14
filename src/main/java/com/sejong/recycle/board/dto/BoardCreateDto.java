@@ -11,5 +11,9 @@ public class BoardCreateDto {
     private String title;
     private String content;
     private String image;
+    private String nickname;
+    private String password;
+    private Double latitude; //위도
+    private Double longitude; //경도
 
 }

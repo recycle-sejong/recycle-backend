@@ -15,7 +15,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Operation(summary = "게시글 리스트 조회 (모든 카테고리 조회)", description = "등록된 게시글을 전체 조회 (not 페이징)")
+@Operation(summary = "게시글 리스트 조회 (타입별 조회)", description = "등록된 게시글을 타입 별로 조회 (not 페이징)")
 @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "게시글 리스트 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                 array = @ArraySchema(schema = @Schema(implementation = BoardListDto.class))
@@ -27,5 +27,6 @@ import java.lang.annotation.RetentionPolicy;
                         })
         )
 })
-public @interface BoardGetsApi {
+public @interface BoardGetsByTypeApi {
+
 }
