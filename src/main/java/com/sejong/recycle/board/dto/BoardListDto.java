@@ -2,7 +2,6 @@ package com.sejong.recycle.board.dto;
 
 
 import com.sejong.recycle.board.Board;
-import com.sejong.recycle.board.BoardType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,8 @@ public class BoardListDto {
     private String title;
     private LocalDateTime createdAt;
     private String nickname;
-    private BoardType boardType;
+    private String content;
+
 
 
     public BoardListDto(Board board) {
@@ -24,6 +24,6 @@ public class BoardListDto {
         this.title = board.getTitle();
         this.createdAt = board.getCreatedAt();
         this.nickname = board.getNickname();
-        this.boardType = board.getBoardType();
+        this.content = board.getContent();
     }
 }
