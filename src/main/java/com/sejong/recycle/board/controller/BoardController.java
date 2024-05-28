@@ -2,12 +2,13 @@ package com.sejong.recycle.board.controller;
 
 
 import com.sejong.recycle.board.Board;
-import com.sejong.recycle.board.BoardType;
 import com.sejong.recycle.board.dto.*;
 import com.sejong.recycle.board.service.BoardService;
 import com.sejong.recycle.board.swagger.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,29 +17,25 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @Tag(name = "게시판 API")
+@Slf4j
 public class BoardController {
     private final BoardService boardService;
 
 
     @BoardCreateApi
     @PostMapping("/board")
-    public Board createBoard(@RequestBody BoardCreateDto memberCreateDto,
-                             @RequestParam("boardType") BoardType boardType) {
-        return boardService.createBoard(memberCreateDto,boardType);
+    public Board createBoard(@RequestBody BoardCreateDto memberCreateDto) {
+        return boardService.createBoard(memberCreateDto);
     }
 
 
     @BoardGetsApi
     @GetMapping("/boards")
-    public List<BoardListDto> getBoards(){
-        return boardService.getBoardList();
+    public BoardPageDto getBoards(@RequestParam("page")  Integer page,
+                                  @RequestParam("size") Integer size){
+        return boardService.getBoardList(page, size);
     }
 
-    @BoardGetsByTypeApi
-    @GetMapping("/boards/type")
-    public List<BoardListDto> getBoardsCategory(@RequestParam("boardType") BoardType boardType){
-        return boardService.getBoardListByType(boardType);
-    }
 
     @BoardGetsMapApi
     @GetMapping("/boards/map")
@@ -56,9 +53,8 @@ public class BoardController {
     @BoardUpdateApi
     @PatchMapping("/boards/{boardId}")
     public BoardResDto updateBoard(@PathVariable("boardId") Long boardId,
-                                   @RequestBody BoardCreateDto boardCreateDto,
-                                   @RequestParam("boardType") BoardType boardType){
-        return boardService.updateBoard(boardId, boardCreateDto, boardType);
+                                   @RequestBody BoardCreateDto boardCreateDto){
+        return boardService.updateBoard(boardId, boardCreateDto);
     }
 
 

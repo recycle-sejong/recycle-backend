@@ -2,11 +2,12 @@ package com.sejong.recycle.board.dto;
 
 
 import com.sejong.recycle.board.Board;
-import com.sejong.recycle.board.BoardType;
+import com.sejong.recycle.comment.dto.CommentDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -20,11 +21,13 @@ public class BoardResDto {
     private String image;
 
     private String nickname;
-    private BoardType boardType;
 
     private Double latitude; //위도
     private Double longitude; //경도
     private LocalDateTime createdAt;
+
+    private List<CommentDto> commentDtos;
+
 
     public BoardResDto(Board board) {
         this.boardId = board.getId();
@@ -32,9 +35,9 @@ public class BoardResDto {
         this.content = board.getContent();
         this.image = board.getImage();
         this.nickname = board.getNickname();
-        this.boardType = board.getBoardType();
         this.latitude = board.getLatitude();
         this.longitude = board.getLongitude();
         this.createdAt = board.getCreatedAt();
+        this.commentDtos = board.getComments().stream().map(CommentDto::new).toList();
     }
 }
