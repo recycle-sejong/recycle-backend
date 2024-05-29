@@ -5,11 +5,14 @@ import com.sejong.recycle.board.exception.AccessDenyException;
 import com.sejong.recycle.board.exception.ResourceNotFoundException;
 import com.sejong.recycle.board.repository.BoardRepository;
 import com.sejong.recycle.comment.dto.CommentDto;
+import com.sejong.recycle.comment.dto.CommentResDto;
 import com.sejong.recycle.comment.dto.CommentUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +35,10 @@ public class CommentService {
         }
         comment.updateContent(contentDto.getContent());
         return comment;
+    }
+
+    public List<CommentResDto> getComment(Long boardId) {
+        return boardRepository.findById(boardId).orElseThrow(()->new ResourceNotFoundException("게시글"))
+                .getComments().stream().map(CommentResDto::new).toList();
     }
 }
