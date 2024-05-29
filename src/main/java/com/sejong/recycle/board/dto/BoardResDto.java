@@ -26,8 +26,6 @@ public class BoardResDto {
     private Double longitude; //경도
     private LocalDateTime createdAt;
 
-    private List<CommentDto> commentDtos;
-
 
     public BoardResDto(Board board) {
         this.boardId = board.getId();
@@ -38,6 +36,5 @@ public class BoardResDto {
         this.latitude = board.getLatitude();
         this.longitude = board.getLongitude();
         this.createdAt = board.getCreatedAt();
-        this.commentDtos = board.getComments().stream().map(CommentDto::new).toList();
     }
 }
