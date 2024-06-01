@@ -16,6 +16,7 @@ public class BoardListDto {
     private LocalDateTime createdAt;
     private String nickname;
     private String content;
+    private String image;
 
 
 
@@ -25,5 +26,6 @@ public class BoardListDto {
         this.createdAt = board.getCreatedAt();
         this.nickname = board.getNickname();
         this.content = board.getContent();
+        this.image = board.getImage();
     }
 }
