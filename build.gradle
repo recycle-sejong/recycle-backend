@@ -33,6 +33,9 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
 	implementation 'org.mindrot:jbcrypt:0.4'
+
+	//S3 buket
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
