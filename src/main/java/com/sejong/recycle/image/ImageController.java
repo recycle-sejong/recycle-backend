@@ -26,7 +26,7 @@ public class ImageController {
     public ResponseEntity<?> uploadAiInfoImage(
             @RequestParam(value = "image",required = true) MultipartFile files){
         try {
-            Image image = imageService.upload(files, "sejong");
+            ImageDto image = imageService.upload(files, "sejong");
             return ResponseEntity.status(HttpStatus.OK).body(image);
         }
         catch (Exception e) {

@@ -20,7 +20,6 @@ import java.util.Optional;
 @Slf4j
 public class ImageService {
 
-    private final ImageRepository imageRepository;
     private final AmazonS3Client amazonS3Client;
 
 
@@ -30,7 +29,7 @@ public class ImageService {
 
 
     /** MultipartFile을 전달받아 File로 전환한 후 S3에 업로드  */
-    public Image upload(MultipartFile multipartFile, String dirName) throws IOException,Exception {
+    public ImageDto upload(MultipartFile multipartFile, String dirName) throws IOException,Exception {
 
         File uploadFile = convert(multipartFile).orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
         String url=uploads(uploadFile,dirName);
@@ -38,7 +37,7 @@ public class ImageService {
 
 
         //log.info("url:{}",imageResDto.getImageUrl());
-        return imageRepository.save(Image.builder().url(url).build());
+        return new ImageDto(url);
     }
 
 
