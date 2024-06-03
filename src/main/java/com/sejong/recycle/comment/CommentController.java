@@ -1,6 +1,7 @@
 package com.sejong.recycle.comment;
 
 
+import com.sejong.recycle.board.dto.PasswordDto;
 import com.sejong.recycle.comment.dto.CommentDto;
 import com.sejong.recycle.comment.dto.CommentResDto;
 import com.sejong.recycle.comment.dto.CommentUpdateDto;
@@ -34,8 +35,9 @@ public class CommentController {
     }
 
     @DeleteMapping("/comments/{commentId}")
-    public String deleteComment(@PathVariable("commentId") Long commentId) {
-        return commentService.deleteComment(commentId);
+    public String deleteComment(@PathVariable("commentId") Long commentId,
+                                @RequestBody PasswordDto passwordDto) {
+        return commentService.deleteComment(commentId, passwordDto);
     }
 
 }
