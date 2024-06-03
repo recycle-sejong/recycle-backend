@@ -1,6 +1,7 @@
 package com.sejong.recycle.comment;
 
 import com.sejong.recycle.board.Board;
+import com.sejong.recycle.board.dto.PasswordDto;
 import com.sejong.recycle.board.exception.AccessDenyException;
 import com.sejong.recycle.board.exception.ResourceNotFoundException;
 import com.sejong.recycle.board.repository.BoardRepository;
@@ -42,8 +43,11 @@ public class CommentService {
                 .getComments().stream().map(CommentResDto::new).toList();
     }
 
-    public String deleteComment(Long commentId) throws ResourceNotFoundException {
+    public String deleteComment(Long commentId, PasswordDto passwordDto) throws ResourceNotFoundException,AccessDenyException {
         Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("댓글"));
+        if (!BCrypt.checkpw(passwordDto.getPassword(), comment.getPassword())){
+            throw new AccessDenyException("권한이 없습니다.");
+        }
         commentRepository.delete(comment);
         return "삭제완료";
     }

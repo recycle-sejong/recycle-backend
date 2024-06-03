@@ -65,7 +65,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
 
-    public String deleteBoard(Long id, PasswordDto passwordDto) throws ResourceNotFoundException {
+    public String deleteBoard(Long id, PasswordDto passwordDto) throws ResourceNotFoundException,AccessDenyException {
         Board board = boardRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("게시글"));
         if (!BCrypt.checkpw(passwordDto.getPassword(), board.getPassword())){
             throw new AccessDenyException("권한이 없습니다.");
