@@ -41,4 +41,10 @@ public class CommentService {
         return boardRepository.findById(boardId).orElseThrow(()->new ResourceNotFoundException("게시글"))
                 .getComments().stream().map(CommentResDto::new).toList();
     }
+
+    public String deleteComment(Long commentId) throws ResourceNotFoundException {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("댓글"));
+        commentRepository.delete(comment);
+        return "삭제완료";
+    }
 }

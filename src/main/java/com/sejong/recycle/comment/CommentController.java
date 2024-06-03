@@ -33,4 +33,9 @@ public class CommentController {
         return commentService.getComment(boardId);
     }
 
+    @DeleteMapping("/comments/{commentId}")
+    public String deleteComment(@PathVariable("commentId") Long commentId) {
+        return commentService.deleteComment(commentId);
+    }
+
 }

@@ -29,6 +29,8 @@ public class Board {
     @Column(columnDefinition = "varchar(1000)")
     private String content;
 
+
+    @Column(columnDefinition = "varchar(1000)")
     private String image;
 
     private String nickname;
