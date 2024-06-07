@@ -4,6 +4,7 @@ package com.sejong.recycle.comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sejong.recycle.board.Board;
 import com.sejong.recycle.comment.dto.CommentDto;
+import com.sejong.recycle.comment.dto.CommentUpdateDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,7 +43,9 @@ public class Comment {
         this.board = board;
     }
 
-    public void updateContent(String content) {
-        this.content = content;
+    public void updateComment(CommentUpdateDto commentUpdateDto) {
+        this.content = commentUpdateDto.getComment().getContent();
+        this.writer = commentUpdateDto.getComment().getWriter();
+        this.password = BCrypt.hashpw(commentUpdateDto.getComment().getPassword(), BCrypt.gensalt());
     }
 }

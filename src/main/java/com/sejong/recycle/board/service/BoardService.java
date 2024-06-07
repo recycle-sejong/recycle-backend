@@ -12,9 +12,11 @@ public interface BoardService {
     public Board createBoard(BoardCreateDto boardCreateDto);
     public BoardPageDto getBoardList(Integer page, Integer size);
     public BoardResDto getBoard(Long id) throws ResourceNotFoundException;
-    public BoardResDto updateBoard(Long id, BoardCreateDto boardCreateDto) throws ResourceNotFoundException, AccessDenyException;
+    public BoardResDto updateBoard(Long id, BoardUpdateDto boardUpdateDto) throws ResourceNotFoundException, AccessDenyException;
     public String deleteBoard(Long id, PasswordDto passwordDto) throws ResourceNotFoundException;
 
 
-    List<BoardMapListDto> getBoardMapList();
+    public List<BoardMapListDto> getBoardMapList();
+
+    public PasswordDto checkPassword(Long boardId,PasswordDto passwordDto);
 }
