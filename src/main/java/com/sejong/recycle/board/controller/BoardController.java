@@ -6,7 +6,6 @@ import com.sejong.recycle.board.dto.*;
 import com.sejong.recycle.board.service.BoardService;
 import com.sejong.recycle.board.swagger.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -53,8 +52,8 @@ public class BoardController {
     @BoardUpdateApi
     @PatchMapping("/boards/{boardId}")
     public BoardResDto updateBoard(@PathVariable("boardId") Long boardId,
-                                   @RequestBody BoardCreateDto boardCreateDto){
-        return boardService.updateBoard(boardId, boardCreateDto);
+                                   @RequestBody BoardUpdateDto boardUpdateDto){
+        return boardService.updateBoard(boardId, boardUpdateDto);
     }
 
 
@@ -63,5 +62,11 @@ public class BoardController {
     public String deleteBoard(@PathVariable("boardId") Long boardId,
                               @RequestBody PasswordDto passwordDto){
         return boardService.deleteBoard(boardId,passwordDto);
+    }
+
+    @PostMapping("/boards/password")
+    public PasswordDto checkPassword(@RequestParam("boardId") Long boardId,
+                                     @RequestBody PasswordDto passwordDto) {
+        return boardService.checkPassword(boardId,passwordDto);
     }
 }

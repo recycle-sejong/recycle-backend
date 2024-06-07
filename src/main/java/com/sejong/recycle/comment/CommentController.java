@@ -25,8 +25,8 @@ public class CommentController {
 
     @PatchMapping("/comments/{commentId}")
     public Comment updateComment(@PathVariable("commentId") Long commentId,
-                                 @RequestBody CommentUpdateDto contentDto) {
-        return commentService.updateComment(commentId, contentDto);
+                                 @RequestBody CommentUpdateDto commentUpdateDto) {
+        return commentService.updateComment(commentId, commentUpdateDto);
     }
 
     @GetMapping("/boards/{boardId}/comments")
@@ -38,6 +38,12 @@ public class CommentController {
     public String deleteComment(@PathVariable("commentId") Long commentId,
                                 @RequestBody PasswordDto passwordDto) {
         return commentService.deleteComment(commentId, passwordDto);
+    }
+
+    @PostMapping("/comments/password")
+    public PasswordDto checkPassword(@RequestParam("commentId")Long commentId,
+                                     @RequestBody PasswordDto passwordDto) {
+        return commentService.checkPassword(commentId,passwordDto);
     }
 
 }

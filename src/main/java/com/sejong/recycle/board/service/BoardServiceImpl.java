@@ -55,12 +55,12 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Transactional
-    public BoardResDto updateBoard(Long id,BoardCreateDto boardCreateDto) throws ResourceNotFoundException, AccessDenyException {
+    public BoardResDto updateBoard(Long id,BoardUpdateDto boardUpdateDto) throws ResourceNotFoundException, AccessDenyException {
         Board board = boardRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("게시글"));
-        if (!BCrypt.checkpw(boardCreateDto.getPassword(), board.getPassword())){
+        if (!BCrypt.checkpw(boardUpdateDto.getPasswordDto().getPassword(), board.getPassword())){
             throw new AccessDenyException("권한이 없습니다.");
         }
-        board.updateBoard(boardCreateDto);
+        board.updateBoard(boardUpdateDto.getBoardCreateDto(),BCrypt.hashpw(boardUpdateDto.getBoardCreateDto().getPassword(), BCrypt.gensalt()));
         return new BoardResDto(board);
     }
 
@@ -74,5 +74,11 @@ public class BoardServiceImpl implements BoardService{
         return "삭제 완료";
     }
 
-
+    public PasswordDto checkPassword(Long boardId,PasswordDto passwordDto) {
+        Board board = boardRepository.findById(boardId).orElseThrow(()->new ResourceNotFoundException("게시글"));
+        if (!BCrypt.checkpw(passwordDto.getPassword(), board.getPassword())){
+            throw new AccessDenyException("권한이 없습니다.");
+        }
+        return passwordDto;
+    }
 }

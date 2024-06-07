@@ -29,12 +29,12 @@ public class CommentService {
     }
 
     @Transactional
-    public Comment updateComment(Long commentId, CommentUpdateDto contentDto) {
+    public Comment updateComment(Long commentId, CommentUpdateDto commentUpdateDto) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("댓글"));
-        if (!BCrypt.checkpw(contentDto.getPassword(), comment.getPassword())){
+        if (!BCrypt.checkpw(commentUpdateDto.getPasswordDto().getPassword(), comment.getPassword())){
             throw new AccessDenyException("권한이 없습니다.");
         }
-        comment.updateContent(contentDto.getContent());
+        comment.updateComment(commentUpdateDto);
         return comment;
     }
 
@@ -50,5 +50,13 @@ public class CommentService {
         }
         commentRepository.delete(comment);
         return "삭제완료";
+    }
+
+    public PasswordDto checkPassword(Long commentId, PasswordDto passwordDto) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("댓글"));
+        if (!BCrypt.checkpw(passwordDto.getPassword(), comment.getPassword())){
+            throw new AccessDenyException("권한이 없습니다.");
+        }
+        return passwordDto;
     }
 }
