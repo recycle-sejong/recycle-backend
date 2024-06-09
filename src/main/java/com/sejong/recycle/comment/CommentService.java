@@ -31,9 +31,6 @@ public class CommentService {
     @Transactional
     public Comment updateComment(Long commentId, CommentUpdateDto commentUpdateDto) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("댓글"));
-        if (!BCrypt.checkpw(commentUpdateDto.getPasswordDto().getPassword(), comment.getPassword())){
-            throw new AccessDenyException("권한이 없습니다.");
-        }
         comment.updateComment(commentUpdateDto);
         return comment;
     }

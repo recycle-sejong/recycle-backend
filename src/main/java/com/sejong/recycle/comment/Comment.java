@@ -44,8 +44,7 @@ public class Comment {
     }
 
     public void updateComment(CommentUpdateDto commentUpdateDto) {
-        this.content = commentUpdateDto.getComment().getContent();
-        this.writer = commentUpdateDto.getComment().getWriter();
-        this.password = BCrypt.hashpw(commentUpdateDto.getComment().getPassword(), BCrypt.gensalt());
+        this.content = commentUpdateDto.getContent();
+
     }
 }

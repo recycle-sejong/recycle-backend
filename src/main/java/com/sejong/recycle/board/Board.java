@@ -2,6 +2,7 @@ package com.sejong.recycle.board;
 
 
 import com.sejong.recycle.board.dto.BoardCreateDto;
+import com.sejong.recycle.board.dto.BoardUpdateDto;
 import com.sejong.recycle.comment.Comment;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -55,12 +56,10 @@ public class Board {
         this.longitude = boardCreateDto.getLongitude();
     }
 
-    public void updateBoard(BoardCreateDto boardCreateDto, String password) {
+    public void updateBoard(BoardUpdateDto boardCreateDto) {
         this.title = boardCreateDto.getTitle();
         this.content = boardCreateDto.getContent();
         this.image = boardCreateDto.getImage();
-        this.nickname = boardCreateDto.getNickname();
-        this.password = password;
         this.latitude = boardCreateDto.getLatitude();
         this.longitude = boardCreateDto.getLongitude();
     }

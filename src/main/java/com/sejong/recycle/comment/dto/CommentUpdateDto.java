@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CommentUpdateDto {
-    private CommentDto comment;
-    private PasswordDto passwordDto;
+    private String content;
 }

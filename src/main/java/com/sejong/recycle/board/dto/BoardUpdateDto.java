@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class BoardUpdateDto {
-    private BoardCreateDto boardCreateDto;
-    private PasswordDto passwordDto;
+    private String title;
+    private String content;
+    private String image;
+    private Double latitude; //위도
+    private Double longitude; //경도
 }

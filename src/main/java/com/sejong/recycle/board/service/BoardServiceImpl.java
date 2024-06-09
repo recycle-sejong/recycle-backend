@@ -57,10 +57,7 @@ public class BoardServiceImpl implements BoardService{
     @Transactional
     public BoardResDto updateBoard(Long id,BoardUpdateDto boardUpdateDto) throws ResourceNotFoundException, AccessDenyException {
         Board board = boardRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("게시글"));
-        if (!BCrypt.checkpw(boardUpdateDto.getPasswordDto().getPassword(), board.getPassword())){
-            throw new AccessDenyException("권한이 없습니다.");
-        }
-        board.updateBoard(boardUpdateDto.getBoardCreateDto(),BCrypt.hashpw(boardUpdateDto.getBoardCreateDto().getPassword(), BCrypt.gensalt()));
+        board.updateBoard(boardUpdateDto);
         return new BoardResDto(board);
     }
 
